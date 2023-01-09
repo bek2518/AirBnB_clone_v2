@@ -4,7 +4,7 @@ Creates a new database engine
 """
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import BaseModel, Base
 from models.amenity import Amenity
 from models.city import City
@@ -39,7 +39,7 @@ class DBStorage:
                                       pool_pre_ping=True)
 
         if env == 'test':
-            Base.metadata.drop_all(self.engine)
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """
