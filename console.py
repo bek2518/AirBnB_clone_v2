@@ -77,13 +77,13 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if len(args) == 0:
             print("** class name missing **")
-            return
+            return False
         if args[0] in HBNBCommand.classes:
             new_dict = self._parser(args[1:])
             new_instance = HBNBCommand.classes[args[0]](**new_dict)
         else:
             print("** class doesn't exist **")
-            return
+            return False
         print(new_instance.id)
         new_instance.save()
 
@@ -92,11 +92,12 @@ class HBNBCommand(cmd.Cmd):
         print("Creates a class of any type")
         print("[Usage]: create <className>\n")
 
-    def do_show(self, args):
+    def do_show(self, arg):
         '''
         Prints the string representation of an instance
         Based on the class name and the id
         '''
+        args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
             return False
@@ -118,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
         print("Shows an individual instance of a class")
         print("[Usage]: show <className> <objectId>\n")
 
-    def do_destroy(self, args):
+    def do_destroy(self, arg):
         '''
         Deletes an instance based on the class name and id
         '''
@@ -144,7 +145,7 @@ class HBNBCommand(cmd.Cmd):
         print("Destroys an individual instance of a class")
         print("[Usage]: destroy <className> <objectId>\n")
 
-    def do_all(self, args):
+    def do_all(self, arg):
         '''
         Prints all representation of all instances
         based or not on the class name'''
