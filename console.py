@@ -2,6 +2,8 @@
 """ Console Module """
 import cmd
 import sys
+from datetime import datetime
+import models
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -121,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
         if not args or len(args) == 0 or args[0] == "":
             print("** class name missing **")
 
-        elif args[0] not in class_list:
+        elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
 
         elif len(args) == 1 or args[1] == "":
@@ -191,7 +193,7 @@ class HBNBCommand(cmd.Cmd):
         if not args or len(args) == 0 or args[0] == "":
             print("** class name missing **")
 
-        elif args[0] not in class_list:
+        elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
 
         elif len(args) == 1 or args[1] == "":
@@ -235,7 +237,7 @@ class HBNBCommand(cmd.Cmd):
         args = args.replace(",", "")
         args = args.split(".")
 
-        if args[0] not in class_list:
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
 
         elif args[1] not in command:
