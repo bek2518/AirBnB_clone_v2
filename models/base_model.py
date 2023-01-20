@@ -6,8 +6,6 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime
 import models
 
-Base = declarative_base()
-
 if models.storage_type == 'db':
     Base = declarative_base()
 else:
