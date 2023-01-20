@@ -59,6 +59,8 @@ class DBStorage:
         Adds the object to current db session
         """
         self.__session.add(obj)
+        self.__session.flush()
+        self.__session.rollback()
 
     def save(self):
         """
@@ -71,7 +73,7 @@ class DBStorage:
         Deletes from the current db session obj
         """
         if obj is not None:
-            self.session.delete(obj)
+            self.__session.delete(obj)
 
     def reload(self):
         """
@@ -80,10 +82,10 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         ses = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(ses)
-        self.__session = Session
+        self.__session = Session()
 
     def close(self):
         """
         call remove method
         """
-        self.__session.remove()
+        self.__session.close()
