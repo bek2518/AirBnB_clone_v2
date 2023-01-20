@@ -50,7 +50,7 @@ class DBStorage:
             if cls is None or cls is classes[name] or cls is name:
                 objs = self.__session.query(classes[name]).all()
                 for obj in objs:
-                    key = obj.__class__.name + '.' + obj.id
+                    key = obj.__class__.__name__ + '.' + obj.id
                     dictionary[key] = obj
         return dictionary
 	
