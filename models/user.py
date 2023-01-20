@@ -4,7 +4,6 @@ import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-from models.review import Review
 
 
 class User(BaseModel, Base):
@@ -24,12 +23,3 @@ class User(BaseModel, Base):
         password = ''
         first_name = ''
         last_name = ''
-
-    @property
-    def reviews(self):
-        review_list = []
-        all_reviews = models.storage.all(Review)
-        for city in all_reviews.values():
-            if city.state_id == self.id:
-                review_list.append(city)
-        return review_list

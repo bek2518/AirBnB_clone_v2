@@ -4,6 +4,19 @@ import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql.schema import Table
+from models.review import Review
+from models.amenity import Amenity
+
+if models.storage_type == 'db':
+    place_amenity = Table('place_amenity', Base.metadata,
+                          Column('place_id', String(60),
+                                 ForeignKey('place_id'), primary_key=True,
+                                 nullable=False),
+                          Column('amenity_id', String(60),
+                                 ForeignKey('amenities_id'), primary_key=True,
+                                 nullable=False))
+
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -21,6 +34,8 @@ class Place(BaseModel, Base):
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
         reviews = relationship('Review', backref='place')
+        amenities = relationship('Amenity', secondary=place_amenity,
+                                 viewonly=False, backref='place_amenities')
 
     else:
         city_id = ""
@@ -34,3 +49,21 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+
+    @property
+    def reviews(self):
+        review_list = []
+        all_reviews = models.storage.all(Review)
+        for review in all_reviews.values():
+            if review.place_id == self.id:
+                review_list.append(review)
+        return review_list
+
+    @property
+    def amenities(self):
+        return self.amenity_ids
+
+    @amenities.setter
+    def amenities(self, obj):
+        if isinstance(obj, Amenity) and obj.id not in self.amenity_ids:
+            self.amenity_ids.append(obj.id)
