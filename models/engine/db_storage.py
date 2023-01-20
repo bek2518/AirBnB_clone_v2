@@ -60,7 +60,7 @@ class DBStorage:
         """
         self.__session.add(obj)
         self.__session.flush()
-        self.__session.rollback()
+        self.__session.refresh(obj)
 
     def save(self):
         """
