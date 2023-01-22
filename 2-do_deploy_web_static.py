@@ -7,7 +7,6 @@ import os
 from datetime import datetime
 
 env.hosts = ["54.146.93.139", "18.209.224.64"]
-env.name = ["ubuntu"]
 
 
 def do_pack():
@@ -26,7 +25,7 @@ def do_pack():
         return pack
 
 
-def do_depoly(archive_path):
+def do_deploy(archive_path):
     """
     Unpacks and distributes web static archive
     """
@@ -38,16 +37,16 @@ def do_depoly(archive_path):
     try:
         put("archive_path", "/tmp/")
         run("mkdir -p /data/web_static/releases/{}/".format(stripped))
-        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".
-            formmat(name, stripped))
+        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}"
+            .formmat(name, stripped))
         run("rm -rf /tmp/{}".format(name))
         run("mv -rf /data/web_static/releases/{1}/web_static/* \
             /data/web_static/releases/{1}/".format(stripped))
-        run("rm -rf /data/web_static/releases/{}/web_static".
-            format(stripped))
+        run("rm -rf /data/web_static/releases/{}/web_static"
+            .format(stripped))
         run("rm -rf /data/web_static/current")
-        run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
-            format(stripped))
+        run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
+            .format(stripped))
 
     except Exception:
         return False
