@@ -2,7 +2,7 @@
 """
 Distributes an archive to web server
 """
-from fabric.api import put, run, local
+from fabric.api import put, run, local, env
 import os
 from datetime import datetime
 
