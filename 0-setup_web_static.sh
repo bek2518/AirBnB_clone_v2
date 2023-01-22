@@ -7,7 +7,7 @@ sudo service nginx start
 sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared
 echo "Fake HTML file with simple content to test Nginx configuration" > /data/web_static/release/test/index.html
-ln -fs /data/web_static/release/test/ /data/web_static/current
+sudo ln -fs /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data
 
 CONFIG=\
