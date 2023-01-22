@@ -36,7 +36,7 @@ def do_deploy(archive_path):
     name = os.path.basename(archive_path)
     stripped = os.path.splitext(name)[0]
     try:
-        put("archive_path", "/tmp/")
+        put(archive_path, "/tmp/")
         run("mkdir -p /data/web_static/releases/{}/".format(stripped))
         run("tar -xzf /tmp/{} -C /data/web_static/releases/{}"
             .formmat(name, stripped))
