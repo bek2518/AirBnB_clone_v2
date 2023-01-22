@@ -6,7 +6,8 @@ from fabric.api import put, run, local, env
 import os
 from datetime import datetime
 
-env.hosts = ["54.146.93.139", "18.209.224.64"]
+env.hosts = ["54.146.93.137", "18.209.224.64"]
+env.name = ["ubuntu"]
 
 
 def do_pack():
@@ -40,8 +41,8 @@ def do_deploy(archive_path):
         run("tar -xzf /tmp/{} -C /data/web_static/releases/{}"
             .formmat(name, stripped))
         run("rm -rf /tmp/{}".format(name))
-        run("mv -rf /data/web_static/releases/{1}/web_static/* \
-            /data/web_static/releases/{1}/".format(stripped))
+        run("mv -rf /data/web_static/releases/{}/web_static/* \
+            /data/web_static/releases/{}/".format(stripped, stripped))
         run("rm -rf /data/web_static/releases/{}/web_static"
             .format(stripped))
         run("rm -rf /data/web_static/current")
