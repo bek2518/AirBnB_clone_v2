@@ -6,7 +6,7 @@ sudo apt -y install nginx
 sudo service nginx start
 sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared
-echo "Fake HTML file with simple content to test Nginx configuration" > /data/web_static/release/test/index.html
+echo "Fake HTML file with simple content to test Nginx configuration" > /data/web_static/releases/test/index.html
 sudo ln -fs /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data
 
