@@ -16,17 +16,20 @@ file  { 'Insert to file'
   esnure  => file,
   path    => '/data/web_static/releases/test/index.html',
   content => 'Fake HTML file with simple content to test Nginx configuration',
+  before  => Exec['link and owner']
 }
 
 exec { 'link and owner':
   command  => 'sudo ln -fs /data/web_static/releases/test/ /data/web_static/current ;
     sudo chown -R ubuntu:ubuntu /data',
   provider => shell,
+  before  => Exec['Insert']
 }
 
 exec { 'Insert':
   command  =>'sudo sed -i "40i\\t\tlocation /hbnb_static/ {\n\t\t\t\talias /data/web_static/current/; \n\t\t}\n" /etc/nginx/sites-available/default',
   provider => shell,
+  before  => Exec['restart service']
 }
 
 exec { 'restart service':
