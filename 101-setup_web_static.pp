@@ -35,25 +35,14 @@ exec { 'link':
 exec {'Owner':
   command  => 'sudo chown -R ubuntu:ubuntu /data',
   provider => shell,
-  before   => Exec['Configuration'],
+  before   => Exec['Insert'],
 }
 
-file { 'Configuration':
-  ensure  => file,
-  path    => '/etc/nginx/sites-enabled/default',
-  content =>
-  'server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
-        server_name _;
-        location / {
-                alias /data/web_static/current;
-                try_files $uri $uri/ =404;
-        }
-    }',
-  before  => ['restart service']
+exec { 'Insert':
+  command  =>'sudo sed -i "40i\\t\tlocation /hbnb_static/ {\n\t\t\t\talias /data/web_static/current/; \n\t\t}\n" 
+    /etc/nginx/sites-available/default',
+  provider => shell,
+  before   => Exec['restart service'],
 }
 
 exec { 'restart service':
