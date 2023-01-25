@@ -68,13 +68,16 @@ def deploy():
 
 def do_clean(number=0):
     """
-    Deletes out-of-adte
+    Deletes out-of-date
     """
-    if number <= 1:
-        ''' Keep only the most recent version'''
-        local("rm -rf {}".format(archive_path))
-        run("rm -rf {}".format(archive_path))
-    
-    if number == 2:
-        '''' Keep most recent and second most recent versions'''
-    '''Continues'''
+    given = int(number)
+    archive_list = os.listdir ('./versions/')
+    archive_list = sorted(archive_list)
+    if given == 0:
+        given += 1
+    archive_list = archive_list[given:]
+
+    for i in range((len(archive_list))):
+        local("rm -rf /versions/{}".format(archive_list[i]))
+        stripped = os.path.splitext(archive_list[i])[0]
+        run("rm -rf /data/web_static/releases/{}".format(stripped))
