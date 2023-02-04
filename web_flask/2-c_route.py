@@ -29,7 +29,7 @@ def c_text(text):
     '''
     Index that displays C followd by value of text for /c/<text> route
     '''
-    return f'C {escape(text)}'.replace('_', ' ')
+    return 'C %s' % escape(text).replace('_', ' ')
 
 
 if __name__ == "__main__":
