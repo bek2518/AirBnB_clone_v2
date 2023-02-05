@@ -6,6 +6,7 @@ from sqlalchemy import String, Column
 from sqlalchemy.orm import relationship
 from models.city import City
 
+
 class State(BaseModel, Base):
     """ State class """
     if models.storage_type == 'db':

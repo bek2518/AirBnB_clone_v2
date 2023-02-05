@@ -53,7 +53,7 @@ class DBStorage:
                     key = obj.__class__.__name__ + '.' + obj.id
                     dictionary[key] = obj
         return dictionary
-	
+
     def new(self, obj):
         """
         Adds the object to current db session
