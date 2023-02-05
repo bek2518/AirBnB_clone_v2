@@ -78,6 +78,7 @@ def do_clean(number=0):
     archive_list = archive_list[given:]
 
     for i in range((len(archive_list))):
-        local("rm -rf /versions/{}".format(archive_list[i]))
+        name = os.path.basename(archive_list[i])
+        local("rm -rf /versions/{}".format(name))
         stripped = os.path.splitext(archive_list[i])[0]
         run("rm -rf /data/web_static/releases/{}".format(stripped))

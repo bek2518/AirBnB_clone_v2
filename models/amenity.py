@@ -9,7 +9,7 @@ class Amenity(BaseModel, Base):
     Amenity class
     '''
 
-    if models.storage_list == 'db':
+    if models.storage_type == 'db':
         __tablename__ = 'amenities'
         name = Column(String(128), nullable=False)
     else:
