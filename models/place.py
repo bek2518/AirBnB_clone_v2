@@ -50,20 +50,20 @@ class Place(BaseModel, Base):
         longitude = 0.0
         amenity_ids = []
 
-    @property
-    def reviews(self):
-        review_list = []
-        all_reviews = models.storage.all(Review)
-        for review in all_reviews.values():
-            if review.place_id == self.id:
-                review_list.append(review)
-        return review_list
+        @property
+        def reviews(self):
+            review_list = []
+            all_reviews = models.storage.all(Review)
+            for review in all_reviews.values():
+                if review.place_id == self.id:
+                    review_list.append(review)
+            return review_list
 
-    @property
-    def amenities(self):
-        return self.amenity_ids
+        @property
+        def amenities(self):
+            return self.amenity_ids
 
-    @amenities.setter
-    def amenities(self, obj):
-        if isinstance(obj, Amenity) and obj.id not in self.amenity_ids:
-            self.amenity_ids.append(obj.id)
+        @amenities.setter
+        def amenities(self, obj):
+            if isinstance(obj, Amenity) and obj.id not in self.amenity_ids:
+                self.amenity_ids.append(obj.id)
