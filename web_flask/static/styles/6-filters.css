@@ -89,7 +89,7 @@ li p {
 .locations:hover .popover,
 .amenities:hover .popover {
     display: inline-block;
-    width: 22.3%;
+    width: 12%;
 }   
 
 .popover h2 {

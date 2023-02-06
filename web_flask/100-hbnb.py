@@ -17,14 +17,16 @@ def teardown(exception):
 	storage.close()
 
 
-@app.route('/filters', strict_slashes=False)
-def filters():
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
 	'''
 	Display index website with state and amenities
 	'''
 	states = storage.all('State')
 	amenities = storage.all('Amenity')
-	return render_template('10-hbnb_filters.html', states=states, amenities=amenities)
+	places = storage.all('Place')
+	return render_template('100-hbnb.html', states=states, 
+							amenities=amenities, places=places)
 
 
 if __name__ == "__main__":
