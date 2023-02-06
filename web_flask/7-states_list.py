@@ -8,14 +8,6 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
-@app.teardown_appcontext
-def teardown(exception):
-    '''
-    Removes SQL Alchemy session after each request
-    '''
-    storage.close()
-
-
 @app.route('/states_list')
 def states_list():
     '''
@@ -23,6 +15,14 @@ def states_list():
     '''
     states = storage.all("State")
     return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def teardown(exception):
+    '''
+    Removes SQL Alchemy session after each request
+    '''
+    storage.close()
 
 
 if __name__ == "__main__":
