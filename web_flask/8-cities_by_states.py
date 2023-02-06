@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown(exc):
+def teardown(exception):
 	'''
 	Removes current SQLAlchemy session after each request
 	'''
@@ -18,7 +18,7 @@ def teardown(exc):
 
 
 @app.route('/cities_by_states', strict_slashes=False)
-def cities_by_state():
+def cities_by_states():
 	'''
 	Displays HTML page of cities and state
 	'''
