@@ -11,20 +11,20 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def teardown(exception):
-	'''
-	Removes current SQLAlchemy session after each request
-	'''
-	storage.close()
+    '''
+    Removes current SQLAlchemy session after each request
+    '''
+    storage.close()
 
 
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_states():
-	'''
-	Displays HTML page of cities and state
-	'''
-	states = storage.all('State')
-	return render_template('8-cities_by_states.html', states=states)
+    '''
+    Displays HTML page of cities and state
+    '''
+    states = storage.all('State')
+    return render_template('8-cities_by_states.html', states=states)
 
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
