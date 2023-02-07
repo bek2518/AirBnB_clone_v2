@@ -11,21 +11,21 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def teardown(exception):
-	'''
-	Removes current SQLAlchemy session after each request
-	'''
-	storage.close()
+    '''
+    Removes current SQLAlchemy session after each request
+    '''
+    storage.close()
 
 
 @app.route('/filters', strict_slashes=False)
 def filters():
-	'''
-	Display index website with state and amenities
-	'''
-	states = storage.all('State')
-	amenities = storage.all('Amenity')
-	return render_template('10-hbnb_filters.html', states=states, amenities=amenities)
+    '''
+    Display index website with state and amenities
+    '''
+    st = storage.all('State')
+    am = storage.all('Amenity')
+    return render_template('10-hbnb_filters.html', states=st, amenities=am)
 
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
